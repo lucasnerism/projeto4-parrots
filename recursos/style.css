@@ -3,12 +3,6 @@ body {
 }
 
 header {
-  font-family: 'Roboto', sans-serif;
-  font-size: 56px;
-  font-weight: 700;
-  line-height: 66px;
-  letter-spacing: -0.004em;
-  color: #75B79E;
   margin-top: 40px;
   margin-bottom: 47px;
   display: flex;
@@ -16,7 +10,16 @@ header {
   align-items: center;
 }
 
-main {
+h1 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 66px;
+  letter-spacing: -0.004em;
+  color: #75B79E;
+}
+
+.board {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -54,10 +57,16 @@ img {
   height: 150px;
 }
 
-.card:hover .back-face {
-  transform: rotateY(0deg);
-}
 
-.card:hover .front-face {
-  transform: rotateY(-180deg);
+@media (max-width: 546px) {
+  h1 {
+    width: 370px;
+    text-align: center;
+  }
+
+  .board {
+    flex-direction: column;
+    align-items: center;
+  }
+
 }
