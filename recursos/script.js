@@ -3,10 +3,11 @@ let qtdecartas = 0;
 let carta = [];
 let ultimaVirada;
 let acertos = 0;
+let tempo = 0;
 
 function comecoJogo() {
   qtdecartas = prompt("Com quantas cartas deseja jogar?");
-  while (qtdecartas % 2 == 1 || qtdecartas < 4 || qtdecartas > 14) {
+  while (qtdecartas % 2 === 1 || qtdecartas < 4 || qtdecartas > 14) {
     alert("Quantidade não permitida, escolha um número par entre 4 e 14");
     qtdecartas = prompt("Com quantas cartas deseja jogar?");
   }
@@ -64,8 +65,8 @@ function virarCarta(essa) {
   }
 
   if (ultimaVirada !== essa) {
-    if (contador % 2 == 1) {
-      if (essa.innerHTML == ultimaVirada.innerHTML) {
+    if (contador % 2 === 1) {
+      if (essa.innerHTML === ultimaVirada.innerHTML) {
         acertos++;
         ultimaVirada.removeAttribute("onclick");
         essa.removeAttribute("onclick");
@@ -88,7 +89,24 @@ function desvirar(esta) {
 }
 
 function vitoria() {
-  alert(`Você ganhou em ${contador} jogadas!`);
+  alert(`Você ganhou em ${contador} jogadas! A duração do jogo foi de ${tempo} segundos!`);
+  clearInterval(tempodejogo);
+  let reiniciar = prompt("Você gostaria de reiniciar a partida?");
+  while (reiniciar !== "sim" && reiniciar !== "não") {
+    reiniciar = prompt("Você gostaria de reiniciar a partida?");
+  }
+  if (reiniciar === "sim") {
+    location.reload();
+  }
+}
+
+function timer() {
+  tempo++;
+  document.querySelector(".timer").innerHTML = tempo;
+
 }
 
 comecoJogo();
+let tempodejogo = setInterval(timer, 1000);
+
+

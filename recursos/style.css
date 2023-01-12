@@ -23,6 +23,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  position: relative;
 }
 
 .card {
@@ -57,6 +58,16 @@ img {
   height: 150px;
 }
 
+.timer {
+  font-size: 36px;
+  line-height: 42px;
+  letter-spacing: -0.004em;
+  color: #86BD8D;
+  position: absolute;
+  top: 2%;
+  right: 5%;
+
+}
 
 @media (max-width: 546px) {
   h1 {
