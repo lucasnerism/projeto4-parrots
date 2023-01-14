@@ -4,26 +4,33 @@ let carta = [];
 let ultimaVirada;
 let acertos = 0;
 let tempo = 0;
+let freezeClic = false;
+
+document.addEventListener("click", freezeClicFn, true);
 
 function comecoJogo() {
-  qtdecartas = prompt("Com quantas cartas deseja jogar?");
-  while (qtdecartas % 2 === 1 || qtdecartas < 4 || qtdecartas > 14) {
+  qtdecartas = prompt("Com quantas cartas deseja jogar? (Número par entre 4 e 14");
+  const mincartas = 4;
+  const maxcartas = 14;
+  while (isNaN(qtdecartas) || qtdecartas % 2 === 1 || qtdecartas < mincartas || qtdecartas > maxcartas) {
     alert("Quantidade não permitida, escolha um número par entre 4 e 14");
-    qtdecartas = prompt("Com quantas cartas deseja jogar?");
+    qtdecartas = prompt("Com quantas cartas deseja jogar? (Número par entre 4 e 14");
   }
   cartas();
   ajusteCartas();
 }
 
+
 function cartas() {
-  let frente = Math.floor(Math.random() * 7);
+  let faces = 7;
+  let frente = Math.floor(Math.random() * faces);
 
   while (carta.length < qtdecartas) {
     if (!carta.includes(frente)) {
       carta.push(frente);
       carta.push(frente);
     }
-    frente = Math.floor(Math.random() * 7);
+    frente = Math.floor(Math.random() * faces);
   }
 
   shuffle(carta);
@@ -38,16 +45,14 @@ function shuffle(array) {
 
 function ajusteCartas() {
   let cartas = 0;
-  let numero = 0;
   while (cartas < qtdecartas) {
-    numero = carta[cartas];
     document.querySelector(".board").innerHTML += `
       <div data-test="card" class="card" onclick="virarCarta(this)">
         <div class="face" >
           <img data-test="face-down-image" src="./recursos/imagens/back.png" alt="" />
         </div>
         <div class="back-face face" >
-          <img data-test="face-up-image" src="./recursos/imagens/${numero}.gif" alt="" />
+          <img data-test="face-up-image" src="./recursos/imagens/${carta[cartas]}.gif" alt="" />
         </div>
       </div>`;
     cartas++;
@@ -57,25 +62,29 @@ function ajusteCartas() {
 function virarCarta(essa) {
   essa.firstElementChild.classList.add("back-face");
   essa.lastElementChild.classList.remove("back-face");
-  let checkacerto;
 
   if (contador === 0) {
     ultimaVirada = essa;
     contador++;
   }
 
-  if (ultimaVirada !== essa) {
+  checkAcerto(essa);
+}
+
+function checkAcerto(nova) {
+  if (ultimaVirada !== nova) {
     if (contador % 2 === 1) {
-      if (essa.innerHTML === ultimaVirada.innerHTML) {
+      if (nova.innerHTML === ultimaVirada.innerHTML) {
         acertos++;
         ultimaVirada.removeAttribute("onclick");
-        essa.removeAttribute("onclick");
+        nova.removeAttribute("onclick");
       } else {
+        disableClicksFor1s();
         setTimeout(desvirar, 1000, ultimaVirada);
-        setTimeout(desvirar, 1000, essa);
+        setTimeout(desvirar, 1000, nova);
       }
     }
-    ultimaVirada = essa;
+    ultimaVirada = nova;
     contador++;
   }
   if (acertos === qtdecartas / 2) {
@@ -89,11 +98,12 @@ function desvirar(esta) {
 }
 
 function vitoria() {
+
   alert(`Você ganhou em ${contador} jogadas! A duração do jogo foi de ${tempo} segundos!`);
   clearInterval(tempodejogo);
-  let reiniciar = prompt("Você gostaria de reiniciar a partida?");
+  let reiniciar = prompt("Você gostaria de reiniciar a partida? (Responda apenas com ''sim'' ou ''não'')");
   while (reiniciar !== "sim" && reiniciar !== "não") {
-    reiniciar = prompt("Você gostaria de reiniciar a partida?");
+    reiniciar = prompt("Você gostaria de reiniciar a partida? (Responda apenas com ''sim'' ou ''não'')");
   }
   if (reiniciar === "sim") {
     location.reload();
@@ -106,7 +116,20 @@ function timer() {
 
 }
 
+function freezeClicFn(e) {
+  if (freezeClic) {
+    e.stopPropagation();
+    e.preventDefault();
+  }
+}
+
+function disableClicksFor1s() {
+  freezeClic = true;
+  setTimeout(() => {
+    freezeClic = false;
+  }, 1000);
+
+}
+
 comecoJogo();
 let tempodejogo = setInterval(timer, 1000);
-
-

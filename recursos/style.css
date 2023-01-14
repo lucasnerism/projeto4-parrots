@@ -71,7 +71,8 @@ img {
 
 @media (max-width: 546px) {
   h1 {
-    width: 370px;
+    width: 312px;
+    font-size: 36px;
     text-align: center;
   }
 
@@ -80,4 +81,7 @@ img {
     align-items: center;
   }
 
+  .card {
+    margin-left: 0px;
+  }
 }
