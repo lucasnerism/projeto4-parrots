@@ -9,12 +9,12 @@ let freezeClic = false;
 document.addEventListener("click", freezeClicFn, true);
 
 function comecoJogo() {
-  qtdecartas = prompt("Com quantas cartas deseja jogar? (Número par entre 4 e 14");
+  qtdecartas = prompt("Com quantas cartas deseja jogar? (Número par entre 4 e 14)");
   const mincartas = 4;
   const maxcartas = 14;
   while (isNaN(qtdecartas) || qtdecartas % 2 === 1 || qtdecartas < mincartas || qtdecartas > maxcartas) {
     alert("Quantidade não permitida, escolha um número par entre 4 e 14");
-    qtdecartas = prompt("Com quantas cartas deseja jogar? (Número par entre 4 e 14");
+    qtdecartas = prompt("Com quantas cartas deseja jogar? (Número par entre 4 e 14)");
   }
   cartas();
   ajusteCartas();
@@ -22,7 +22,7 @@ function comecoJogo() {
 
 
 function cartas() {
-  let faces = 7;
+  const faces = 7;
   let frente = Math.floor(Math.random() * faces);
 
   while (carta.length < qtdecartas) {
