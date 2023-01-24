@@ -62,7 +62,7 @@ function ajusteCartas() {
 function virarCarta(essa) {
   essa.firstElementChild.classList.add("back-face");
   essa.lastElementChild.classList.remove("back-face");
-  disableClicksForxs(200);
+  disableClicksForxs(500);
   if (contador === 0) {
     ultimaVirada = essa;
     contador++;
