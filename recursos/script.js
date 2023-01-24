@@ -62,7 +62,7 @@ function ajusteCartas() {
 function virarCarta(essa) {
   essa.firstElementChild.classList.add("back-face");
   essa.lastElementChild.classList.remove("back-face");
-
+  disableClicksForxs(200);
   if (contador === 0) {
     ultimaVirada = essa;
     contador++;
@@ -79,7 +79,7 @@ function checkAcerto(nova) {
         ultimaVirada.removeAttribute("onclick");
         nova.removeAttribute("onclick");
       } else {
-        disableClicksFor1s();
+        disableClicksForxs(1000);
         setTimeout(desvirar, 1000, ultimaVirada);
         setTimeout(desvirar, 1000, nova);
       }
@@ -123,11 +123,11 @@ function freezeClicFn(e) {
   }
 }
 
-function disableClicksFor1s() {
+function disableClicksForxs(tempo) {
   freezeClic = true;
   setTimeout(() => {
     freezeClic = false;
-  }, 1000);
+  }, tempo);
 
 }
 
